@@ -1,3 +1,68 @@
+// Password Protection
+const SECRET_PASSWORD = "iloveyou"; // Change this to your desired password
+
+function initPasswordProtection() {
+    const passwordScreen = document.getElementById('passwordScreen');
+    const mainContent = document.getElementById('mainContent');
+    const passwordInput = document.getElementById('passwordInput');
+    const unlockBtn = document.getElementById('unlockBtn');
+    const errorMsg = document.getElementById('errorMsg');
+
+    // Check if already unlocked (session storage)
+    if (sessionStorage.getItem('unlocked') === 'true') {
+        passwordScreen.style.display = 'none';
+        mainContent.style.display = 'block';
+        initMainContent();
+        return;
+    }
+
+    function tryUnlock() {
+        const enteredPassword = passwordInput.value.toLowerCase().trim();
+
+        if (enteredPassword === SECRET_PASSWORD) {
+            sessionStorage.setItem('unlocked', 'true');
+            passwordScreen.style.opacity = '0';
+            passwordScreen.style.transition = 'opacity 0.5s ease';
+
+            setTimeout(() => {
+                passwordScreen.style.display = 'none';
+                mainContent.style.display = 'block';
+                mainContent.style.opacity = '0';
+                mainContent.style.transition = 'opacity 0.5s ease';
+
+                setTimeout(() => {
+                    mainContent.style.opacity = '1';
+                    initMainContent();
+                }, 50);
+            }, 500);
+        } else {
+            errorMsg.textContent = '💔 Wrong password, try again...';
+            passwordInput.value = '';
+            passwordInput.style.borderColor = '#e74c3c';
+
+            setTimeout(() => {
+                passwordInput.style.borderColor = '#ffd3e0';
+                errorMsg.textContent = '';
+            }, 2000);
+        }
+    }
+
+    unlockBtn.addEventListener('click', tryUnlock);
+    passwordInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') tryUnlock();
+    });
+}
+
+function initMainContent() {
+    createFloatingHearts();
+    generateReasons();
+    initScrollAnimations();
+    initEnvelope();
+    initSparkles();
+    initSmoothScroll();
+    initParallax();
+}
+
 // Floating Hearts Animation
 function createFloatingHearts() {
     const container = document.getElementById('hearts');
@@ -132,15 +197,7 @@ function initParallax() {
 
 // Initialize Everything
 document.addEventListener('DOMContentLoaded', () => {
-    createFloatingHearts();
-    generateReasons();
-    initScrollAnimations();
-    initEnvelope();
-    initSparkles();
-    initSmoothScroll();
-    initParallax();
-    
-    // Add music toggle (optional)
+    initPasswordProtection();
     console.log('💕 Happy Valentine\'s Day! 💕');
 });
 
