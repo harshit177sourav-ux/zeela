@@ -8,9 +8,24 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Password Screen -->
+    <div class="password-screen" id="passwordScreen">
+        <div class="password-container">
+            <div class="lock-icon">🔐</div>
+            <h2>This is for someone special...</h2>
+            <p>Enter the password to unlock our love story</p>
+            <input type="password" id="passwordInput" placeholder="Enter password..." autocomplete="off">
+            <button id="unlockBtn">Unlock 💕</button>
+            <p class="error-msg" id="errorMsg"></p>
+        </div>
+    </div>
+
+    <!-- Main Content (Hidden initially) -->
+    <div class="main-content" id="mainContent" style="display: none;">
+
     <!-- Floating Hearts Background -->
     <div class="hearts-container" id="hearts"></div>
-    
+
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
@@ -171,6 +186,8 @@
         <p>Made with infinite love for you</p>
         <p class="year">Valentine's Day 2026</p>
     </footer>
+
+    </div> <!-- End of main-content -->
 
     <script src="script.js"></script>
 </body>
